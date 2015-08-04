@@ -19,9 +19,13 @@ fun eq_orapl(Orange,Orange)
   | eq_orapl(one,another) =
     false;
 
+(* val eq_orapl = fn : orapl * orapl -> bool *)
+
 (* 4 *)
 
 fun eq_int(n:int,m:int):bool = (n=m);
+
+(* val eq_int = fn : int * int -> bool *)
 
 fun subst_int(n,a,Empty)
   = Empty
@@ -30,6 +34,7 @@ fun subst_int(n,a,Empty)
       then Cons(n,subst_int(n,a,t))
       else Cons(e,subst_int(n,a,t));
 
+(* val subst_int = fn : int * int * int list -> int list *)
 
 fun subst_orapl(n,a,Empty)
   = Empty
@@ -37,6 +42,8 @@ fun subst_orapl(n,a,Empty)
     = if eq_orapl(a,e)
       then Cons(n,subst_orapl(n,a,t))
       else Cons(e,subst_orapl(n,a,t));
+
+(* val subst_orapl = fn : orapl * orapl * orapl list -> orapl list *)
 
 (* 9 *)
 
@@ -46,6 +53,8 @@ fun subst(rel,n,a,Empty)
     = if rel(a,e)
       then Cons(n,subst(rel,n,a,t))
       else Cons(e,subst(rel,n,a,t));
+
+(* val subst = fn : ('a * 'b -> bool) * 'b * 'a * 'b list -> 'b list *)
 
 (* 22 *)
 
@@ -69,6 +78,8 @@ subst(eq_int,11,15,
 
 fun less_than(n:int,m:int):bool = (n<m);
 
+(* val less_than = fn : int * int -> bool *)
+
 less_than(15,17);
 
 (* 27 *)
@@ -90,6 +101,8 @@ fun in_range((small,large),x)
     then less_than(x,large)
     else false;
 
+(* val in_range = fn : (int * int) * int -> bool *)
+
 (* 36 *)
 
 subst(in_range,22,(11,16),
@@ -109,6 +122,8 @@ fun subst_pred(pred,n,Empty)
     = if pred(e)
       then Cons(n,subst_pred(pred,n,t))
       else Cons(e,subst_pred(pred,n,t));
+
+(* val subst_pred = fn : ('a -> bool) * 'a * 'a list -> 'a list *)
 
 (* 48 *)
 
@@ -148,6 +163,8 @@ fun in_range_11_16(x)
   = if less_than(11,x)
     then less_than(x,16)
     else false;
+
+(* val in_range_11_16 = fn : int -> bool *)
 
 (* 62 *)
 
@@ -194,6 +211,8 @@ fun subst_c(pred)(n,Empty)
       then Cons(n,subst_c(pred)(n,t))
       else Cons(e,subst_c(pred)(n,t));
 
+(* val in_range_c = fn : int * int -> int -> bool *)
+
 (* 86 *)
 
 fun subst_c_in_range_11_16(n,Empty)
@@ -205,6 +224,8 @@ fun subst_c_in_range_11_16(n,Empty)
       else Cons(e,
 		subst_c_in_range_11_16(n,t));
 
+(* val subst_c_in_range_11_16 = fn : int * int list -> int list *)
+
 (* 88 *)
 
 fun combine(Empty,Empty)
@@ -215,6 +236,8 @@ fun combine(Empty,Empty)
     = Cons(a,l1)
   | combine(Cons(a,l1),Cons(b,l2))
     = Cons(a,combine(l1,Cons(b,l2)));
+
+(* val combine = fn : 'a list * 'a list -> 'a list *)
 
 fun combine(Empty,l2)
   = l2
@@ -241,6 +264,8 @@ fun combine_c(Empty)(l2)
   | combine_c(Cons(a,l1))(l2)
     =  Cons(a,combine_c(l1)(l2));
 
+(* val combine_c = fn : 'a list -> 'a list -> 'a list *)
+
 (* 95 *)
 
 fun prefixer_123(l2)
@@ -248,6 +273,8 @@ fun prefixer_123(l2)
 	 Cons(2,
 	      Cons(3,
 		   l2)));
+
+(* val prefixer_123 = fn : int list -> int list *)
 
 (* 97 *)
 
@@ -259,10 +286,14 @@ fun waiting_prefix_123(l2)
 		       Empty)))
 		  (l2));
 
+(* val waiting_prefix_123 = fn : int list -> int list *)
+
 (* 104 *)
 
 fun base(l2)
   = l2;
+
+(* val base = fn : 'a -> 'a *)
 
 (* 115 *)
 
@@ -272,6 +303,9 @@ fun combine_s(Empty)
     = make_cons(a,combine_s(l1))
 and make_cons(a,f)(l2)
     = Cons(a,f(l2));
+
+(* val combine_s = fn : 'a list -> 'a list -> 'a list *)
+(* val make_cons = fn : 'a * ('a list -> 'a list) -> 'a list -> 'a list *)
 
 (* 116 *)
 
@@ -288,6 +322,8 @@ make_cons(3,base);
 fun prefix_3(l2)
   = Cons(3,base(l2));
 
+(* val prefix_3 = fn : int list -> int list *)
+
 (* 118 *)
 
 make_cons(2,
@@ -296,6 +332,7 @@ make_cons(2,
 fun prefix_23(l2)
   = Cons(2,prefix_3(l2));
 
+(* val prefix_23 = fn : int list -> int list *)
 
 (* 119 *)
 
@@ -304,3 +341,5 @@ make_cons(1,
 
 fun prefix_123(l2)
   = Cons(1,prefix_23(l2));
+
+(* val prefix_123 = fn : int list -> int list *)
