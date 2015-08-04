@@ -85,7 +85,7 @@ subst(less_than,11,15,
 
 (* 33 *)
 
-fun in_range((small,large,x))
+fun in_range((small,large),x)
   = if less_than(small,x)
     then less_than(x,large)
     else false;
@@ -105,7 +105,7 @@ subst(in_range,22,(11,16),
 
 fun subst_pred(pred,n,Empty)
   = Empty
-  | subst_pred(pred,n,Cons(e,t)) =
+  | subst_pred(pred,n,Cons(e,t))
     = if pred(e)
       then Cons(n,subst_pred(pred,n,t))
       else Cons(e,subst_pred(pred,n,t));
@@ -117,7 +117,7 @@ fun is_15(n)
 
 (* 49 *)
 
-subst(is_15,11,
+subst_pred(is_15,11,
       Cons(15,
 	   Cons(6,
 		Cons(15,
@@ -133,14 +133,14 @@ fun less_than_15(x)
 
 (* 55 *)
 
-subst(less_than_15,11,
-      Cons(15,
-	   Cons(6,
-		Cons(15,
-		     Cons(17,
-			  Cons(15,
-			       Cons(8,
-				    Empty)))))));
+subst_pred(less_than_15,11,
+	   Cons(15,
+		Cons(6,
+		     Cons(15,
+			  Cons(17,
+			       Cons(15,
+				    Cons(8,
+					 Empty)))))));
 
 (* 59 *)
 
@@ -151,14 +151,14 @@ fun in_range_11_16(x)
 
 (* 62 *)
 
-subst(in_range_11_16,22,
-      Cons(15,
-	   Cons(6,
-		Cons(15,
-		     Cons(17,
-			  Cons(15,
-			       Cons(8,
-				    Empty)))))));
+subst_pred(in_range_11_16,22,
+	   Cons(15,
+		Cons(6,
+		     Cons(15,
+			  Cons(17,
+			       Cons(15,
+				    Cons(8,
+					 Empty)))))));
 
 (* 65 *)
 
@@ -176,14 +176,14 @@ fun in_range_c_11_16(x)
 
 (* 77 *)
 
-subst(in_range_c(3,16),22,
-      Cons(15,
-	   Cons(6,
-		Cons(15,
-		     Cons(17,
-			  Cons(15,
-			       Cons(8,
-				    Empty)))))));
+subst_pred(in_range_c(3,16),22,
+	   Cons(15,
+		Cons(6,
+		     Cons(15,
+			  Cons(17,
+			       Cons(15,
+				    Cons(8,
+					 Empty)))))));
 
 (* 79 *)
 
@@ -192,7 +192,7 @@ fun subst_c(pred)(n,Empty)
   | subst_c(pred)(n,Cons(e,t))
     = if pred(e)
       then Cons(n,subst_c(pred)(n,t))
-      else Cons(e,subt_c(pred)(n,t));
+      else Cons(e,subst_c(pred)(n,t));
 
 (* 86 *)
 
